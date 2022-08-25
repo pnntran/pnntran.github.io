@@ -83,7 +83,6 @@ function Card(props) {
     function handleDeposit() {
         console.log(name, `Deposited: ${deposit}`);
         if (!validate(deposit,    'deposit'))    return;
-          //ctx.users.push({deposit});
           users[currentUserIndex].balance += Number(deposit);
           setShow(false);
           return;
@@ -121,6 +120,13 @@ function Card(props) {
                 setPassword('');
                 return;
             }
+            if (name === users[i].name && password === users[i].password){
+                let userID = users[i].id;
+                setShow(false);
+                console.log(name, password, userID);
+                assignUserID(userID);
+                return;
+            }
         }
     }
 
@@ -139,11 +145,8 @@ function Card(props) {
                 {props.body}
                 {props.handle && show ? (
                    <>
-                   {/* Name<br/> */}
                    <input type="input" className="form-control" id="name" placeholder="Name" value={name} onChange={e => setName(e.currentTarget.value)} /><br/>
-                   {/* Email address<br/> */}
                    <input type="input" className="form-control" id="email" placeholder="Email" value={email} onChange={e => setEmail(e.currentTarget.value)} /><br/>
-                   {/* Password<br/> */}
                    <input type="password" className="form-control" id="password" placeholder="Password" value={password} onChange={e => setPassword(e.currentTarget.value)} /><br/>
                    <button type="submit" disabled={!validateForm()} className="btn btn-warning" onClick={handleCreate} >Create Account</button>
                    </>
@@ -152,7 +155,7 @@ function Card(props) {
                    <>
                    <div className="text-center mb-3">
                        <span class="badge rounded-pill badge-success m-3">✓</span>
-                       <p>An account for {name} was successfully created!</p>
+                       <p>An account for <strong>{name}</strong> was successfully created!</p>
                     </div>
                     <button type="submit" className="btn btn-warning" onClick={clearForm} >{props.submitButton}</button>
                    </>
@@ -174,7 +177,7 @@ function Card(props) {
                     <>
                     <div className="text-center mb-3">
                     <span class="badge rounded-pill badge-success mb-3">✓</span>
-                      <p>A deposit of ${deposit} was successful!</p>
+                      <p>A deposit of <strong>${deposit}</strong> was successful!</p>
                     </div>
                     <button type="submit" className="btn btn-warning" onClick={clearForm} >Make Another Deposit</button>
                     </>
@@ -195,7 +198,7 @@ function Card(props) {
                     <>
                     <div className="text-center mb-3">
                     <span class="badge rounded-pill badge-success m-3">✓</span>
-                      <p>A withdrawl of ${withdraw} was successful!</p>
+                      <p>A withdrawl of <strong>${withdraw}</strong> was successful!</p>
                     </div>
                     <button type="submit" className="btn btn-warning" onClick={clearForm} >Make Another Withdrawl</button>
                     </>
@@ -211,9 +214,9 @@ function Card(props) {
                   <>
                   <div className="text-center mb-3">
                   <span class="badge rounded-pill badge-success m-3">✓</span>
-                    <p>Login for {name} was successfully created!</p>
+                    <p>Login for <strong>{name}</strong> was successful!</p>
                   </div>
-                  <button type="submit" className="btn btn-warning" onClick={clearForm} >Continue to Account</button>
+                  <button type="submit" className="btn btn-warning" onClick={clearForm} >Logout</button>
                   </>
                   )
                 )}
