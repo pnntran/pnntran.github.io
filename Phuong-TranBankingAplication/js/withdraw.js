@@ -1,8 +1,6 @@
 function Withdraw() {
-    //const ctx = React.useContext(UserContext);
   
     function handle () {
-        //ctx.users.push({name: data.name, withdraw: data.withdraw});
         return true;
     }
   
